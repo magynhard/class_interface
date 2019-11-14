@@ -7,6 +7,15 @@ RSpec.describe ClassInterface do
   end
 end
 
+$ruby_version_lt_24 = (1.class.to_s == 'Fixnum')
+$ruby_version_gte_24 = (1.class.to_s == 'Integer')
+
+if $ruby_version_lt_24
+  puts "Ruby < 2.4"
+else
+  puts "Ruby >= 2.4"
+end
+
 RSpec.describe '#implements' do
   context 'Implement interfaces - constants - positive cases' do
     it 'implement an interface without any constants or methods' do
@@ -150,7 +159,7 @@ RSpec.describe '#implements' do
         end
       }.not_to raise_error
     end
-    it 'implement an interface with only one constant of type Numeric using Bignum' do
+    it 'implement an interface with only one constant of type Numeric using bignum(<2.4)/integer(>=2.4)' do
       class IConstant17
         ONE_CONSTANT = Numeric
       end
@@ -185,7 +194,11 @@ RSpec.describe '#implements' do
     end
     it 'implement an interface with only one constant of type Bignum using big number' do
       class IConstant20
-        ONE_CONSTANT = Bignum
+        ONE_CONSTANT = if $ruby_version_lt_24
+                         Bignum
+                       else
+                         Integer
+                       end
       end
       expect {
         class Constant20
@@ -330,7 +343,11 @@ RSpec.describe '#implements' do
     end
     it 'implement an interface with only one constant of type Bignum, implementing Float' do
       class IConstantNegative20
-        ONE_CONSTANT = Bignum
+        ONE_CONSTANT = if $ruby_version_lt_24
+                         Bignum
+                       else
+                         Integer
+                       end
       end
       expect {
         class ConstantNegative20
@@ -451,7 +468,11 @@ RSpec.describe '#implements' do
     end
     it 'implement an interface with only one constant of type Bignum, implementing array' do
       class IConstantNegative40
-        ONE_CONSTANT = Bignum
+        ONE_CONSTANT = if $ruby_version_lt_24
+                         Bignum
+                       else
+                         Integer
+                       end
       end
       expect {
         class ConstantNegative40
@@ -734,6 +755,7 @@ RSpec.describe '#implements' do
           class StringImplNY
             def class_nester_y
             end
+
             implements 'INeverDefined'
           end
         end
@@ -749,6 +771,7 @@ RSpec.describe '#implements' do
           class StringImplNZ
             def class_foo_z
             end
+
             implements 'IStringImplNZ'
           end
         end
@@ -765,6 +788,7 @@ RSpec.describe '#implements' do
             class StringImplN
               def class_foo
               end
+
               implements 'IStringImplN2'
             end
           end

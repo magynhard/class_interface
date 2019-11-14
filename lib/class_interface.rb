@@ -72,14 +72,18 @@ def implements(interface_constant)
       invalid_const_definitions += [const_name] unless if_const_class_type.class == Class
       next if if_const_class_type.to_s == 'NilClass'
       impl_const_value_type = Object.const_get("%s::%s" % [implementation_class, const_name]).class
+      ruby_version_lt_24 = (1.class.to_s == 'Fixnum')
+      ruby_version_gte_24 = (1.class.to_s == 'Integer')
       # Ruby < 2.4
-      if defined?(Bignum) && if_const_class_type == Numeric && [Fixnum, Float, Bignum].include?(impl_const_value_type)
+      if ruby_version_lt_24 && if_const_class_type.to_s == 'Numeric' && %w[Fixnum Float Bignum].include?(impl_const_value_type.to_s)
         # we are fine, specific case for numbers
       # Ruby => 2.4
-      elsif defined?(Integer) && if_const_class_type == Numeric && [Integer, Float].include?(impl_const_value_type)
+      elsif ruby_version_gte_24 && if_const_class_type.to_s == 'Numeric' && %w[Integer Float].include?(impl_const_value_type.to_s)
         # we are fine, specific case for numbers
-      elsif defined?(Bignum) && ((if_const_class_type == Bignum && impl_const_value_type == Integer) ||
-          (if_const_class_type == Fixnum && impl_const_value_type == Integer))
+      elsif ruby_version_lt_24 && ((if_const_class_type.to_s == 'Bignum' && impl_const_value_type.to_s == 'Integer') ||
+          (if_const_class_type.to_s == 'Fixnum' && impl_const_value_type.to_s == 'Integer') ||
+          (if_const_class_type.to_s == 'Integer' && impl_const_value_type.to_s == 'Fixnum') ||
+          (if_const_class_type.to_s == 'Integer' && impl_const_value_type.to_s == 'Bignum'))
         # Ruby 2.4 unifies Fixnum and Bignum into Integer
       elsif if_const_class_type != impl_const_value_type
         raise ClassInterface::ImplementationConstantTypeError, "Value type of constant '#{implementation_class}::#{const_name}' does not match interface '#{if_const_string}'. (#{impl_const_value_type} given, #{if_const_class_type} expected)"
