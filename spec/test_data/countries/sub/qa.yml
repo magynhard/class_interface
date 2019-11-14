@@ -1,5 +1,0 @@
-# encoding: utf-8
----
-extends: 
-  - "../_defaults/qa.yml"
-  - "../_defaults/de.yml"

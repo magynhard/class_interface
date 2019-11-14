@@ -1,9 +1,0 @@
-extends: 'base.yml'
-alpha: false
-beta: true
-data:
-  delta: true
-  kappa: false
-string_data:
-  delta: 'true'
-  kappa: 'false'
