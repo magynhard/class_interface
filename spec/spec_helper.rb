@@ -1,4 +1,3 @@
-require "bundler/setup"
 require "class_interface"
 
 RSpec.configure do |config|
