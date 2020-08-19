@@ -53,7 +53,7 @@ def implements(interface_constant)
       end
     end
     interface_static_methods.each do |method_name|
-      if_params_count_arity = Object.const_get(interface_constant).method(method_name).arity
+      if_params_count_arity = Object.const_get(interface_constant.to_s).method(method_name).arity
       impl_params_count_arity = Object.const_get(implementation_class).method(method_name).arity
       if if_params_count_arity != impl_params_count_arity
         raise ClassInterface::ImplementationParameterCountError, "Parameters of static method '#{implementation_class}##{method_name}' do not match with interface '#{interface_constant}##{method_name}' (given #{impl_params_count_arity.abs}, expected #{if_params_count_arity.abs})"
