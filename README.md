@@ -1,9 +1,22 @@
-# Ruby gem class_interface
+# class_interface
 
-Extends Ruby to support class interfaces.
+Ruby gem to extend Ruby to support class interfaces you may know them from other programming languages like C++ or Java.
 
-That can be very handy in teams to declare requirements for specific types of classes.  
+Raises a variety of different exceptions when the requirements of the interface are not met.
 
+That can be very handy in teams to declare requirements for specific types of classes.
+
+# Contents
+
+* [Installation](#installation)
+* [Usage](#usage)
+* [Documentation](#documentation)
+* [Contributing](#contributing)
+
+
+
+
+<a name="installation"></a>
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -19,8 +32,12 @@ And then execute:
 Or install it yourself as:
 
     $ gem install class_interface
-    
-## Examples
+
+
+
+
+<a name="usage"></a>
+## Usage
 
 ### Defining an interface
 
@@ -68,6 +85,11 @@ class MyImplementation
 end
 ```
 
+
+
+
+
+<a name="documentation"></a>
 ## Documentation
 ```ruby
 #implements(InterfaceClassConstant)
@@ -78,16 +100,21 @@ _InterfaceClassConstant_ must be a valid InterfaceClassConstant or a String, con
 ### Methods
 
 All defined methods in the interface class must be implemented in the implementing class.
-The parameter count must be the same.
+The parameter count must be the same. A distinction is made between static and dynamic methods.
 
 ### Constant Types
 
 All CONSTANTS defined in the interface class must be implemented in the implementing class.
-CONSTANTS of interfaces may be defined = nil, to allow all types of definitions in the implementing class.
+CONSTANTS of interfaces may be defined with `nil`, to allow all types of definitions in the implementing class.
 
-To specify a type, assign its class constant, e.g. String, Array, ...
+Otherwise to specify a type, assign its class constant, e.g. `String`, `Array`, `MyCustomClass`, ...
 If a specified type is defined, it is mandatory for the implementation to use that type.
 
+
+
+
+
+<a name="contributing"></a>
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/magynhard/class_interface. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
