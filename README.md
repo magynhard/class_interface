@@ -1,6 +1,6 @@
 # class_interface
-![Gem](https://img.shields.io/gem/v/class_interface?color=default&style=plastic&logo=ruby&logoColor=red)
-![Gem](https://img.shields.io/gem/dt/class_interface?color=blue&style=plastic)
+[![Gem](https://img.shields.io/gem/v/class_interface?color=default&style=plastic&logo=ruby&logoColor=red)](https://rubygems.org/gems/class_interface)
+![downloads](https://img.shields.io/gem/dt/class_interface?color=blue&style=plastic)
 [![License: MIT](https://img.shields.io/badge/License-MIT-gold.svg?style=plastic&logo=mit)](LICENSE)
 
 > Ruby gem to extend Ruby to support class interfaces you may know them from other programming languages like C++ or Java.
